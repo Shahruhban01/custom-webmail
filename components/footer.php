@@ -5,13 +5,18 @@
  */
 function renderFooter(array $scripts = []): void {
     $base = APP_URL . '/assets/js';
+    
+    // Core scripts always loaded
+    $coreScripts = ['main.js', 'sidebar.js'];
+    
+    // Merge, deduplicate — prevent double loading
+    $allScripts = array_unique(array_merge($coreScripts, $scripts));
 ?>
-  <script src="<?= $base ?>/main.js"></script>
-  <script src="<?= $base ?>/sidebar.js"></script>
-  <?php foreach ($scripts as $s): ?>
-  <script src="<?= $base ?>/<?= $s ?>"></script>
+  <?php foreach ($allScripts as $s): ?>
+  <script src="<?= $base ?>/<?= htmlspecialchars($s) ?>"></script>
   <?php endforeach; ?>
 </body>
 </html>
 <?php
 }
+
