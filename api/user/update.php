@@ -25,7 +25,7 @@ $db->prepare("UPDATE webmail_users SET name=?, signature=? WHERE id=?")
 echo json_encode([
     'success' => true,
     'user'    => [
-        'id'        => $user['id'],
+        'id'        => (int) $user['id'],
         'name'      => $name,
         'email'     => $user['email'],
         'signature' => $sig,

@@ -16,4 +16,9 @@ $stmt = $db->prepare(
 );
 $stmt->execute([$user['id']]);
 
-echo json_encode(['success' => true, 'templates' => $stmt->fetchAll()]);
+$templates = $stmt->fetchAll();
+$templates = array_map(fn($t) => array_merge($t, ['id' => (int)$t['id']]), $templates);
+
+echo json_encode(['success' => true, 'templates' => $templates]);
+
+// echo json_encode(['success' => true, 'templates' => $stmt->fetchAll()]);

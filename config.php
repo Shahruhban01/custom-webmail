@@ -5,7 +5,7 @@
  */
 
 define('APP_NAME', 'MailFlow');
-define('APP_URL', 'http://developerruhban.com/services/webmail');
+define('APP_URL', 'https://developerruhban.com/services/webmail');
 define('UPLOAD_DIR', __DIR__ . '/uploads/');
 define('MAX_FILE_SIZE', 5 * 1024 * 1024); // 5MB
 define('ALLOWED_EXTENSIONS', ['pdf','doc','docx','txt','png','jpg','jpeg','gif','zip','xlsx','csv']);
@@ -43,6 +43,7 @@ function getDB(): PDO {
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => false,
+                PDO::ATTR_STRINGIFY_FETCHES  => false,
             ]);
         } catch (PDOException $e) {
             die(json_encode(['error' => 'Database connection failed.']));

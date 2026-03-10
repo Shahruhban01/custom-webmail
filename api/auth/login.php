@@ -38,9 +38,10 @@ echo json_encode([
     'success' => true,
     'token'   => $token,
     'user'    => [
-        'id'        => $user['id'],
+        'id'        => (int) $user['id'],      // ← cast to int
         'name'      => $user['name'],
         'email'     => $user['email'],
         'signature' => $user['signature'] ?? '',
     ],
 ]);
+

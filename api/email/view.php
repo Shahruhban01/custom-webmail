@@ -21,12 +21,21 @@ $stmt = $db->prepare(
     "SELECT * FROM webmail_emails WHERE id=? AND user_id=? LIMIT 1"
 );
 $stmt->execute([$id, $user['id']]);
-$email = $stmt->fetch();
 
-if (!$email) {
-    http_response_code(404);
-    echo json_encode(['message' => 'Email not found.']);
-    exit;
-}
+$email = $stmt->fetch();
+$email['id']      = (int) $email['id'];
+$email['user_id'] = (int) $email['user_id'];
+$email['is_html'] = (int) $email['is_html'];
 
 echo json_encode(['success' => true, 'email' => $email]);
+
+
+// $email = $stmt->fetch();
+
+// if (!$email) {
+//     http_response_code(404);
+//     echo json_encode(['message' => 'Email not found.']);
+//     exit;
+// }
+
+// echo json_encode(['success' => true, 'email' => $email]);

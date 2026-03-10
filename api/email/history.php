@@ -35,8 +35,20 @@ $stmt->bindValue(':limit',  $limit,  PDO::PARAM_INT);
 $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 
-echo json_encode([
-    'success' => true,
-    'emails'  => $stmt->fetchAll(),
-    'page'    => $page,
-]);
+$emails = $stmt->fetchAll();
+
+// Cast numeric fields for Flutter
+$emails = array_map(function($e) {
+    $e['id']      = (int) $e['id'];
+    $e['user_id'] = (int) $e['user_id'];
+    $e['is_html'] = (int) $e['is_html'];
+    return $e;
+}, $emails);
+
+echo json_encode(['success' => true, 'emails' => $emails, 'page' => $page]);
+
+// echo json_encode([
+//     'success' => true,
+//     'emails'  => $stmt->fetchAll(),
+//     'page'    => $page,
+// ]);
